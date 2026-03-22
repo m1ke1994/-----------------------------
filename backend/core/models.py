@@ -154,6 +154,25 @@ class Service(models.Model):
         return self.title
 
 
+class ServiceImage(models.Model):
+    service = models.ForeignKey(
+        Service,
+        related_name="images",
+        on_delete=models.CASCADE,
+        verbose_name="Услуга",
+    )
+    image = models.ImageField(upload_to="services/gallery/", verbose_name="Изображение")
+    order = models.PositiveIntegerField(default=0, verbose_name="Порядок")
+
+    class Meta:
+        verbose_name = "Изображение услуги"
+        verbose_name_plural = "Галерея услуг"
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return f"{self.service.title} #{self.id}"
+
+
 class Tariff(models.Model):
     service = models.ForeignKey(Service, related_name="tariffs", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)

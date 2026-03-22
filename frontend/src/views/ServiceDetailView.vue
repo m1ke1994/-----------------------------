@@ -15,13 +15,6 @@ const selectedBookingService = ref(null);
 const selectedImage = ref("");
 const isLightboxOpen = ref(false);
 
-const galleryImagesFallback = [
-  "/images/service-moose-1.jpg",
-  "/images/service-moose-2.jpg",
-  "/images/service-tea-1.jpg",
-  "/images/service-energy-1.jpg",
-];
-
 const slugPath = computed(() =>
   String(route.params.slugPath || "").replace(/^\/+|\/+$/g, "")
 );
@@ -32,11 +25,10 @@ const hasTariffs = computed(() => Array.isArray(service.value?.tariffs) && servi
 const hasChildren = computed(() => Array.isArray(service.value?.children) && service.value.children.length > 0);
 const serviceImages = computed(() => {
   const rawImages = Array.isArray(service.value?.images) ? service.value.images : [];
-  const normalized = rawImages
+  const normalizedGallery = rawImages
     .map((item, index) => {
-      const rawUrl = String(item?.image_url || "").trim();
-      if (!rawUrl) return null;
-      const imageUrl = rawUrl.startsWith("/") ? rawUrl : `/${rawUrl}`;
+      const imageUrl = String(item?.image_url || "").trim();
+      if (!imageUrl) return null;
       return {
         id: item?.id ?? `image-${index}`,
         imageUrl,
@@ -44,15 +36,19 @@ const serviceImages = computed(() => {
     })
     .filter(Boolean);
 
-  if (normalized.length) {
-    return normalized;
+  if (normalizedGallery.length) {
+    return normalizedGallery;
   }
 
-  return galleryImagesFallback.map((imageUrl, index) => ({
-    id: `fallback-${index + 1}`,
-    imageUrl,
-  }));
+  const coverImage = String(service.value?.image || "").trim();
+  if (!coverImage) {
+    return [];
+  }
+
+  return [{ id: `cover-${service.value?.id || "service"}`, imageUrl: coverImage }];
 });
+const hasGalleryImages = computed(() => serviceImages.value.length > 0);
+const hasMultipleGalleryImages = computed(() => serviceImages.value.length > 1);
 
 const chooseTariff = (tariff) => {
   selectedBookingService.value = service.value || null;
@@ -64,6 +60,7 @@ const chooseTariff = (tariff) => {
 };
 
 const openImage = (imageUrl) => {
+  if (!hasMultipleGalleryImages.value) return;
   selectedImage.value = imageUrl || "";
   isLightboxOpen.value = Boolean(imageUrl);
 };
@@ -111,6 +108,13 @@ watch(isLightboxOpen, (isOpen) => {
     selectedImage.value = "";
   }
 });
+
+watch(
+  () => service.value?.id,
+  () => {
+    closeLightbox();
+  }
+);
 </script>
 
 <template>
@@ -206,9 +210,9 @@ watch(isLightboxOpen, (isOpen) => {
         />
       </section>
 
-      <section class="service-page__section">
+      <section v-if="hasGalleryImages" class="service-page__section">
         <h2 class="service-page__h2">Галерея</h2>
-        <div class="service-page__images-grid">
+        <div v-if="hasMultipleGalleryImages" class="service-page__images-grid">
           <button
             v-for="image in serviceImages"
             :key="image.id"
@@ -219,6 +223,9 @@ watch(isLightboxOpen, (isOpen) => {
             <img :src="image.imageUrl" :alt="service.title" loading="lazy" decoding="async" />
           </button>
         </div>
+        <figure v-else class="service-page__image-single">
+          <img :src="serviceImages[0].imageUrl" :alt="service.title" loading="lazy" decoding="async" />
+        </figure>
       </section>
     </section>
 
@@ -235,7 +242,7 @@ watch(isLightboxOpen, (isOpen) => {
 
   <AppFooter />
 
-  <div v-if="isLightboxOpen" class="service-page__lightbox-overlay" @click.self="closeLightbox">
+  <div v-if="isLightboxOpen && hasMultipleGalleryImages" class="service-page__lightbox-overlay" @click.self="closeLightbox">
     <div class="service-page__lightbox">
       <button class="service-page__lightbox-close" type="button" @click="closeLightbox">×</button>
       <img v-if="selectedImage" :src="selectedImage" :alt="service?.title || 'Изображение услуги'" />
@@ -363,6 +370,20 @@ watch(isLightboxOpen, (isOpen) => {
 
 .service-page__image-btn:hover img {
   transform: scale(1.03);
+}
+
+.service-page__image-single {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg-elevated) 80%, transparent);
+}
+
+.service-page__image-single img {
+  width: 100%;
+  max-height: 520px;
+  display: block;
+  object-fit: cover;
 }
 
 .service-page__lightbox-overlay {

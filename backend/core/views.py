@@ -56,7 +56,13 @@ class NewsDetailAPIView(generics.RetrieveAPIView):
 
 
 class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Service.objects.filter(parent__isnull=True).prefetch_related("children", "tariffs")
+    queryset = Service.objects.filter(parent__isnull=True).prefetch_related(
+        "tariffs",
+        "images",
+        "children",
+        "children__tariffs",
+        "children__images",
+    )
     serializer_class = ServiceSerializer
 
 

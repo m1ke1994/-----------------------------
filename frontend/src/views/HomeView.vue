@@ -74,21 +74,6 @@ onMounted(() => {
       <div class="profile-content">
         <ProfileHero :menu-items="menuItems" />
 
-        <section id="about" class="app-section app-section--about" v-reveal>
-          <div class="app-section__inner">
-            <h2 class="app-section__title">Обо мне</h2>
-            <div class="about-home glass-card">
-              <p class="about-home__text">
-                Я провожу авторские форматы отдыха и практики в «Новом Конаково»: от спокойных прогулок
-                и чаепитий до глубоких тематических встреч на природе.
-              </p>
-              <router-link class="about-home__link btn-secondary" to="/about">
-                Подробнее обо мне
-              </router-link>
-            </div>
-          </div>
-        </section>
-
         <section id="services" class="app-section" v-reveal>
           <div class="app-section__inner">
             <h2 class="app-section__title">Услуги и форматы</h2>
@@ -107,28 +92,6 @@ onMounted(() => {
           </div>
         </section>
 
-        <section id="articles" class="app-section" v-reveal>
-          <div class="app-section__inner">
-            <div class="articles-home__head">
-              <h2 class="app-section__title articles-home__title">Статьи и видео</h2>
-            </div>
-
-            <div class="articles-home__grid">
-              <p v-if="loadingArticles">Загрузка...</p>
-              <ArticleCard
-                v-for="item in latestMaterials"
-                :key="item.slug"
-                :item="item"
-                :show-description="false"
-              />
-            </div>
-            <p v-if="articleError">{{ articleError }}</p>
-            <div class="articles-home__footer">
-              <router-link class="articles-home__link btn-secondary" to="/articles">Все статьи и видео</router-link>
-            </div>
-          </div>
-        </section>
-
         <section id="schedule" class="app-section" v-reveal>
           <div class="app-section__inner">
             <h2 class="app-section__title">Расписание занятий</h2>
@@ -143,6 +106,28 @@ onMounted(() => {
             <h2 class="app-section__title">Отзывы</h2>
             <div class="app-section__content">
               <ReviewsSection />
+            </div>
+          </div>
+        </section>
+
+        <section id="articles" class="app-section" v-reveal>
+          <div class="app-section__inner">
+            <div class="articles-home__head">
+              <h2 class="app-section__title articles-home__title">Статьи / Видео</h2>
+            </div>
+
+            <div class="articles-home__grid">
+              <p v-if="loadingArticles">Загрузка...</p>
+              <ArticleCard
+                v-for="item in latestMaterials"
+                :key="item.slug"
+                :item="item"
+                :show-description="false"
+              />
+            </div>
+            <p v-if="articleError">{{ articleError }}</p>
+            <div class="articles-home__footer">
+              <router-link class="articles-home__link btn-secondary" to="/articles">Все материалы / Видео</router-link>
             </div>
           </div>
         </section>
@@ -217,26 +202,6 @@ onMounted(() => {
   width: 100%;
 }
 
-.app-section--about {
-  padding-top: 40px;
-}
-
-.about-home {
-  padding: 20px;
-  display: grid;
-  gap: 14px;
-}
-
-.about-home__text {
-  margin: 0;
-  color: var(--text);
-  line-height: 1.7;
-}
-
-.about-home__link {
-  justify-self: start;
-}
-
 .articles-home__head {
   display: grid;
   gap: 12px;
@@ -304,11 +269,6 @@ onMounted(() => {
 
   .app-section__title {
     font-size: 24px;
-  }
-
-  .about-home__link {
-    width: 100%;
-    justify-content: center;
   }
 
   .articles-home__grid {

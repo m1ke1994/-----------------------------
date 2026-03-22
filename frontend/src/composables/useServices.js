@@ -11,6 +11,13 @@ const toNumber = (value, fallback = 0) => {
   return Number.isFinite(parsed) ? parsed : fallback;
 };
 
+const normalizeMediaUrl = (value) => {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (/^(https?:)?\/\//i.test(raw)) return raw;
+  return raw.startsWith("/") ? raw : `/${raw}`;
+};
+
 const byOrder = (a, b) => {
   const diff = toNumber(a?.order, 0) - toNumber(b?.order, 0);
   if (diff !== 0) return diff;
@@ -60,15 +67,17 @@ const normalizeServiceBase = (service, index = 0) => {
   const slug = String(service?.slug || "").trim();
   const { parentId, parentSlug } = extractParentRef(service);
   const rawId = service?.id ?? service?.pk ?? (slug || `service-${index}`);
-  const imageUrl = String(service?.image_url || service?.image || "").trim();
+  const imageUrl = normalizeMediaUrl(service?.image_url || service?.image);
 
   const images = Array.isArray(service?.images)
     ? service.images
         .map((item, imageIndex) => ({
           id: item?.id ?? `image-${imageIndex}`,
-          image_url: String(item?.image_url || ""),
+          image_url: normalizeMediaUrl(item?.image_url || item?.image),
+          order: toNumber(item?.order, imageIndex),
         }))
         .filter((item) => item.image_url)
+        .sort((a, b) => a.order - b.order)
     : [];
 
   return {

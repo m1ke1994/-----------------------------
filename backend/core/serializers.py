@@ -8,6 +8,7 @@ from .models import (
     ScheduleDay,
     ScheduleEvent,
     Service,
+    ServiceImage,
     Tariff,
 )
 
@@ -79,9 +80,28 @@ class TariffSerializer(serializers.ModelSerializer):
         fields = ("id", "title", "slug", "description", "duration", "price", "order")
 
 
+class ServiceImageSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ServiceImage
+        fields = ("id", "image", "image_url", "order")
+
+    def get_image_url(self, obj):
+        if not obj.image:
+            return None
+
+        request = self.context.get("request")
+        if request is None:
+            return obj.image.url
+
+        return request.build_absolute_uri(obj.image.url)
+
+
 class ServiceSerializer(serializers.ModelSerializer):
     children = serializers.SerializerMethodField()
     tariffs = TariffSerializer(many=True, read_only=True)
+    images = ServiceImageSerializer(many=True, read_only=True)
     image_url = serializers.SerializerMethodField()
 
     class Meta:
@@ -97,6 +117,7 @@ class ServiceSerializer(serializers.ModelSerializer):
             "order",
             "children",
             "tariffs",
+            "images",
         )
 
     def get_children(self, obj):

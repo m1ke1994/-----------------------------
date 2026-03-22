@@ -12,6 +12,7 @@ from .models import (
     ScheduleDay,
     ScheduleEvent,
     Service,
+    ServiceImage,
     Tariff,
 )
 
@@ -134,6 +135,13 @@ class TariffInline(admin.TabularInline):
     fields = ("title", "slug", "description", "duration", "price", "order")
 
 
+class ServiceImageInline(admin.TabularInline):
+    model = ServiceImage
+    extra = 1
+    fields = ("image", "order")
+    ordering = ("order", "id")
+
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ("title", "is_category", "parent", "order")
@@ -141,7 +149,15 @@ class ServiceAdmin(admin.ModelAdmin):
     search_fields = ("title", "slug")
     prepopulated_fields = {"slug": ("title",)}
     fields = ("title", "slug", "description", "image", "is_active", "is_category", "parent", "order")
-    inlines = (TariffInline,)
+    inlines = (TariffInline, ServiceImageInline)
+
+
+@admin.register(ServiceImage)
+class ServiceImageAdmin(admin.ModelAdmin):
+    list_display = ("id", "service", "order")
+    search_fields = ("service__title",)
+    autocomplete_fields = ("service",)
+    ordering = ("order", "id")
 
 
 class ScheduleEventInline(admin.TabularInline):
