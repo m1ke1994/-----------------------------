@@ -1,0 +1,87 @@
+name: volga
+
+services:
+  db:
+    image: postgres:15
+    container_name: volga-db
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}:${DATABASE_PORT}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME} -p ${DATABASE_PORT}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        BACKEND_PORT: ${BACKEND_PORT}
+    container_name: volga-backend
+    restart: always
+    env_file:
+      - ./.env
+    command: >
+      sh -c "
+      until python manage.py migrate; do
+        echo 'Waiting for PostgreSQL...';
+        sleep 1;
+      done &&
+      python manage.py collectstatic --noinput &&
+      gunicorn config.wsgi:application --bind 0.0.0.0:${BACKEND_PORT}
+      "
+    volumes:
+      - ./backend:/app
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      BASE_URL: ${BASE_URL}
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      JWT_SECRET: ${JWT_SECRET}
+      API_KEY: ${API_KEY}
+      BACKEND_PORT: ${BACKEND_PORT}
+
+  frontend:
+    container_name: volga-frontend
+    restart: always
+    env_file:
+      - ./.env
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    ports:
+      - "${FRONTEND_PORT}:80"
+    depends_on:
+      - backend
+    volumes:
+      - media_data:/media
+      - static_data:/staticfiles
+
+volumes:
+  postgres_data:
+  media_data:
+  static_data:
