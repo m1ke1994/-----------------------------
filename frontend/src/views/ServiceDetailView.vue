@@ -27,7 +27,7 @@ const slugPath = computed(() =>
 );
 
 const service = computed(() => getServiceByPath(slugPath.value));
-const bookingService = computed(() => selectedBookingService.value || service.value);
+const bookingService = computed(() => selectedBookingService.value);
 const hasTariffs = computed(() => Array.isArray(service.value?.tariffs) && service.value.tariffs.length > 0);
 const hasChildren = computed(() => Array.isArray(service.value?.children) && service.value.children.length > 0);
 const serviceImages = computed(() => {
@@ -79,6 +79,16 @@ const chooseChildService = (child) => {
     behavior: "smooth",
     block: "start",
   });
+};
+
+const chooseCurrentService = () => {
+  selectedBookingService.value = service.value || null;
+  selectedTariff.value = null;
+};
+
+const clearBookingSelection = () => {
+  selectedBookingService.value = null;
+  selectedTariff.value = null;
 };
 
 onMounted(() => {
@@ -180,10 +190,19 @@ watch(isLightboxOpen, (isOpen) => {
       </section>
 
       <section ref="bookingSectionRef" class="service-page__section">
+        <div v-if="!bookingService" class="service-page__booking-empty glass-card">
+          <p class="service-page__text">
+            Выберите услугу, чтобы заполнить заявку.
+          </p>
+          <button class="btn-secondary service-page__booking-select" type="button" @click="chooseCurrentService">
+            Выбрать «{{ service.title }}»
+          </button>
+        </div>
         <ServiceBookingForm
-          :service="bookingService || service"
+          :service="bookingService"
           :selected-tariff="selectedTariff"
           @update:selected-tariff="selectedTariff = $event"
+          @clear-selection="clearBookingSelection"
         />
       </section>
 
@@ -395,6 +414,16 @@ watch(isLightboxOpen, (isOpen) => {
   gap: 12px;
 }
 
+.service-page__booking-empty {
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.service-page__booking-select {
+  justify-self: start;
+}
+
 @media (max-width: 900px) {
   .service-page__grid {
     grid-template-columns: 1fr;
@@ -416,6 +445,11 @@ watch(isLightboxOpen, (isOpen) => {
   }
 
   .service-page__choose {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .service-page__booking-select {
     width: 100%;
     justify-content: center;
   }

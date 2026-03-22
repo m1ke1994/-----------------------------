@@ -5,7 +5,7 @@ import { createServiceRequest } from "../api/serviceRequests";
 const props = defineProps({
   service: {
     type: Object,
-    required: true,
+    default: null,
   },
   selectedTariff: {
     type: Object,
@@ -13,7 +13,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:selectedTariff"]);
+const emit = defineEmits(["update:selectedTariff", "clear-selection"]);
 
 const name = ref("");
 const phone = ref("");
@@ -23,13 +23,18 @@ const isSaved = ref(false);
 const submitError = ref("");
 const successTimerId = ref(null);
 
+const hasSelectedService = computed(() => {
+  const title = String(props.service?.title || "").trim();
+  const slug = String(props.service?.slug || "").trim();
+  return Boolean(title && slug);
+});
+
 const serviceTitle = computed(() => String(props.service?.title || ""));
-const serviceDescription = computed(() => String(props.service?.description || ""));
 
 const tariffs = computed(() =>
   Array.isArray(props.service?.tariffs) ? props.service.tariffs : []
 );
-const hasTariffs = computed(() => tariffs.value.length > 0);
+const hasTariffs = computed(() => hasSelectedService.value && tariffs.value.length > 0);
 
 const formatPrice = (price) => `${Number(price || 0).toLocaleString("ru-RU")} ₽`;
 
@@ -42,7 +47,9 @@ const selectedTariffResolved = computed(() => {
 });
 
 const canSubmit = computed(() => {
-  const hasRequiredFields = name.value.trim().length > 0 && phone.value.trim().length > 0;
+  if (!hasSelectedService.value) return false;
+  const hasRequiredFields =
+    name.value.trim().length > 0 && phone.value.trim().length > 0;
   if (!hasRequiredFields) return false;
   if (!hasTariffs.value) return true;
   return Boolean(selectedTariffId.value);
@@ -51,6 +58,11 @@ const canSubmit = computed(() => {
 watch(
   () => props.selectedTariff,
   (tariff) => {
+    if (!hasSelectedService.value) {
+      selectedTariffId.value = "";
+      return;
+    }
+
     if (tariff?.id != null) {
       selectedTariffId.value = String(tariff.id);
       return;
@@ -75,7 +87,7 @@ watch(
 );
 
 watch(selectedTariffId, (value) => {
-  if (!hasTariffs.value) {
+  if (!hasSelectedService.value || !hasTariffs.value) {
     emit("update:selectedTariff", null);
     return;
   }
@@ -96,7 +108,15 @@ const resetForm = () => {
   name.value = "";
   phone.value = "";
   selectedTariffId.value = "";
+  isSaved.value = false;
+  submitError.value = "";
   emit("update:selectedTariff", null);
+};
+
+const clearSelection = () => {
+  clearSuccessTimer();
+  resetForm();
+  emit("clear-selection");
 };
 
 const handleSubmit = async () => {
@@ -115,7 +135,7 @@ const handleSubmit = async () => {
       message: tariff?.title ? `Выбран тариф: ${tariff.title}` : "",
     });
 
-    resetForm();
+    clearSelection();
     isSaved.value = true;
     clearSuccessTimer();
     successTimerId.value = setTimeout(() => {
@@ -141,21 +161,19 @@ onBeforeUnmount(() => {
       Оставьте контакт, и мы свяжемся с вами для подтверждения записи.
     </p>
 
-    <div class="service-booking__summary">
+    <p v-if="!hasSelectedService" class="service-booking__hint">
+      Сначала выберите услугу.
+    </p>
+
+    <div v-if="hasSelectedService" class="service-booking__summary">
       <h3 class="service-booking__summary-title">Вы выбрали</h3>
 
       <article class="service-booking__summary-card">
         <h4 class="service-booking__summary-name">{{ serviceTitle || "Услуга" }}</h4>
-        <p v-if="serviceDescription" class="service-booking__summary-text">
-          {{ serviceDescription }}
-        </p>
       </article>
 
       <article v-if="selectedTariffResolved" class="service-booking__summary-card service-booking__summary-card--tariff">
         <h4 class="service-booking__summary-name">{{ selectedTariffResolved.title }}</h4>
-        <p v-if="selectedTariffResolved.description" class="service-booking__summary-text">
-          {{ selectedTariffResolved.description }}
-        </p>
         <p class="service-booking__summary-meta">{{ formatPrice(selectedTariffResolved.price) }}</p>
         <p v-if="selectedTariffResolved.duration" class="service-booking__summary-meta">
           {{ selectedTariffResolved.duration }}
@@ -198,9 +216,19 @@ onBeforeUnmount(() => {
         </select>
       </label>
 
-      <button class="btn-primary service-booking__submit" type="submit" :disabled="!canSubmit || isSubmitting">
-        Отправить
-      </button>
+      <div class="service-booking__actions">
+        <button class="btn-primary service-booking__submit" type="submit" :disabled="!canSubmit || isSubmitting">
+          Отправить
+        </button>
+        <button
+          class="btn-outline service-booking__clear"
+          type="button"
+          :disabled="isSubmitting"
+          @click="clearSelection"
+        >
+          Очистить
+        </button>
+      </div>
       <p v-if="isSaved" class="service-booking__success" style="color: #2e7d32;">Отправлено</p>
       <p v-if="submitError" class="service-booking__success">{{ submitError }}</p>
     </form>
@@ -222,6 +250,12 @@ onBeforeUnmount(() => {
 }
 
 .service-booking__subtitle {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.service-booking__hint {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
@@ -311,6 +345,12 @@ onBeforeUnmount(() => {
 .service-booking__submit[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.service-booking__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .service-booking__success {
