@@ -197,7 +197,7 @@ onUnmounted(() => {
 .app-header__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 12px 20px;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -205,28 +205,35 @@ onUnmounted(() => {
 }
 
 .app-header__brand {
-  margin-right: 20px;
+  margin-right: 14px;
   color: var(--color-dark-deep);
-  font-family: 'Hitch Hike', 'Cormorant Garamond', serif;
-  font-size: clamp(22px, 2.2vw, 30px);
+  font-family: var(--font-brand);
+  font-size: clamp(21px, 2vw, 29px);
   line-height: 1;
   letter-spacing: 0.3px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .app-header__links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: clamp(8px, 0.8vw, 12px);
   margin-right: auto;
+  min-width: 0;
 }
 
 .app-header__link {
-  font-size: 14px;
+  font-family: var(--font-menu);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
   color: var(--text);
   text-decoration: none;
   position: relative;
-  padding: 6px 4px;
+  white-space: nowrap;
+  padding: 6px 2px;
   transition: color 200ms ease;
 }
 
@@ -258,6 +265,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 8px;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .app-header__burger {
@@ -315,7 +323,7 @@ onUnmounted(() => {
 .app-header__drawer-title {
   font-size: clamp(22px, 6vw, 30px);
   color: var(--color-dark-deep);
-  font-family: 'Hitch Hike', 'Cormorant Garamond', serif;
+  font-family: var(--font-brand);
   line-height: 1;
   margin-bottom: 10px;
   letter-spacing: 0.3px;
@@ -342,7 +350,9 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.06);
   border: none;
   color: var(--text);
+  font-family: var(--font-menu);
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.3;
   position: relative;
   transition: color 200ms ease, background 200ms ease, transform 200ms ease;

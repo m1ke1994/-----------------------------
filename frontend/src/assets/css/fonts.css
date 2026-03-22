@@ -1,8 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Karla:wght@400;500;700&family=Source+Sans+Pro:wght@400&display=swap');
-@import url('https://fonts.cdnfonts.com/css/hitch-hike');
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/manrope-400.woff2') format('woff2'),
+    url('/fonts/manrope/manrope-400.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/manrope-500.woff2') format('woff2'),
+    url('/fonts/manrope/manrope-500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/manrope-600.woff2') format('woff2'),
+    url('/fonts/manrope/manrope-600.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/manrope-700.woff2') format('woff2'),
+    url('/fonts/manrope/manrope-700.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond/cormorant-garamond-400.woff2') format('woff2'),
+    url('/fonts/cormorant-garamond/cormorant-garamond-400.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond/cormorant-garamond-500.woff2') format('woff2'),
+    url('/fonts/cormorant-garamond/cormorant-garamond-500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond/cormorant-garamond-600.woff2') format('woff2'),
+    url('/fonts/cormorant-garamond/cormorant-garamond-600.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-garamond/cormorant-garamond-700.woff2') format('woff2'),
+    url('/fonts/cormorant-garamond/cormorant-garamond-700.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Hitch Hike';
-  src: local('Hitch Hike'), local('HitchHike');
+  src: local('Hitch Hike'), local('HitchHike'),
+    url('/fonts/hitch-hike/hitch-hike-400.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }

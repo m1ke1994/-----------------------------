@@ -224,7 +224,7 @@ onUnmounted(() => {
     position: sticky;
     top: 16px;
     z-index: 60;
-    width: min(1100px, calc(100% - 32px));
+    width: min(var(--container-max), calc(100% - 32px));
     margin: 16px auto 0;
     border-radius: 12px;
     background: color-mix(in srgb, var(--nav-surface) 60%, transparent);
@@ -240,7 +240,7 @@ onUnmounted(() => {
 }
 
 .hero-nav__inner {
-    padding: 10px 18px;
+    padding: 10px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -249,27 +249,34 @@ onUnmounted(() => {
 }
 
 .hero-nav__brand {
-    margin-right: 10px;
+    margin-right: 12px;
     color: var(--color-dark-deep);
-    font-family: 'Hitch Hike', 'Cormorant Garamond', serif;
-    font-size: clamp(23px, 2.4vw, 32px);
+    font-family: var(--font-brand);
+    font-size: clamp(22px, 2.1vw, 30px);
     line-height: 1;
     letter-spacing: 0.4px;
     text-shadow: none;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .hero-nav__links {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: clamp(8px, 0.8vw, 12px);
     margin-right: auto;
+    min-width: 0;
 }
 
 .hero-nav__link {
-    font-size: 14px;
+    font-family: var(--font-menu);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
     color: var(--text);
-    padding: 6px 6px;
+    padding: 6px 2px;
+    white-space: nowrap;
     border-radius: 0;
     background: transparent;
     border: none;
@@ -308,6 +315,7 @@ onUnmounted(() => {
     align-items: center;
     gap: 8px;
     margin-left: auto;
+    flex-shrink: 0;
 }
 
 .hero-nav__burger {
@@ -366,7 +374,7 @@ onUnmounted(() => {
 .hero-nav__drawer-title {
     font-size: clamp(22px, 6vw, 30px);
     color: var(--color-dark-deep);
-    font-family: 'Hitch Hike', 'Cormorant Garamond', serif;
+    font-family: var(--font-brand);
     line-height: 1;
     margin-bottom: 10px;
     letter-spacing: 0.3px;
@@ -393,7 +401,9 @@ onUnmounted(() => {
     background: rgba(255, 255, 255, 0.06);
     border: none;
     color: var(--text);
+    font-family: var(--font-menu);
     font-size: 14px;
+    font-weight: 500;
     line-height: 1.3;
     position: relative;
     transition: color 200ms ease, background 200ms ease, transform 200ms ease;
@@ -457,7 +467,7 @@ onUnmounted(() => {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    font-family: 'Hitch Hike', 'Cormorant Garamond', serif;
+    font-family: var(--font-brand);
     font-size: clamp(44px, 8.4vw, 120px);
     line-height: 0.95;
     letter-spacing: 0.02em;
@@ -555,6 +565,20 @@ onUnmounted(() => {
 
     .info {
         margin-left: 300px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero-nav__brand {
+        display: none;
+    }
+
+    .hero-nav__links {
+        display: none;
+    }
+
+    .hero-nav__burger {
+        display: inline-flex;
     }
 }
 

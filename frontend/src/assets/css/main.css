@@ -6,6 +6,9 @@
 @tailwind utilities;
 
 :root {
+  --font-brand: "Hitch Hike", "Cormorant Garamond", "Times New Roman", serif;
+  --font-menu: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --font-text: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   --bg: var(--color-background-main);
   --bg-elevated: var(--color-background-light);
   --text: var(--color-text-primary);
@@ -52,7 +55,7 @@ html, body, #app {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  font-family: var(--font-text);
   line-height: 1.5;
   overflow-x: hidden;
 }
