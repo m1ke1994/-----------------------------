@@ -11,6 +11,7 @@ const props = defineProps({
   timeline: { type: Array, default: () => [] },
   sections: { type: Array, default: () => [] },
   gallery: { type: Array, default: () => [] },
+  galleryFirst: { type: Boolean, default: false },
   galleryTitle: { type: String, default: 'Галерея' },
   gallerySubtitle: { type: String, default: 'Кадры атмосферы и пространства.' },
   cta: { type: Object, default: null },
@@ -104,7 +105,11 @@ onUnmounted(() => {
         </article>
       </div>
 
-      <div v-if="sections.length" class="page__sections">
+      <div
+        v-if="sections.length"
+        class="page__sections"
+        :class="{ 'page__sections--after-gallery': galleryFirst }"
+      >
         <article v-for="section in sections" :key="section.title" class="page__section glass-card" v-reveal>
           <h2 class="page__section-title">{{ section.title }}</h2>
           <p class="page__section-text">{{ section.text }}</p>
@@ -113,7 +118,12 @@ onUnmounted(() => {
         </article>
       </div>
 
-      <section v-if="gallery.length" ref="galleryRef" class="page__gallery-block">
+      <section
+        v-if="gallery.length"
+        ref="galleryRef"
+        class="page__gallery-block"
+        :class="{ 'page__gallery-block--first': galleryFirst }"
+      >
         <div class="page__gallery-head" v-reveal>
           <div>
             <h2 class="page__gallery-title">{{ galleryTitle }}</h2>
@@ -291,6 +301,10 @@ onUnmounted(() => {
   gap: 18px;
 }
 
+.page__sections--after-gallery {
+  order: 2;
+}
+
 .page__section {
   padding: 18px 20px;
 }
@@ -321,6 +335,10 @@ onUnmounted(() => {
 .page__gallery-block {
   display: grid;
   gap: 14px;
+}
+
+.page__gallery-block--first {
+  order: 1;
 }
 
 .page__gallery-head {

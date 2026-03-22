@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
+import CookieBanner from './components/CookieBanner.vue'
 
 const forceScrollTop = () => {
   if (typeof window === 'undefined') return
@@ -21,5 +22,6 @@ onMounted(() => {
 
 <template>
   <router-view />
+  <CookieBanner />
 </template>
 

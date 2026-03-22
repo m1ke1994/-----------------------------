@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
 
 <template>
   <AppHeader />
-  <PageTemplate v-bind="pageData" />
+  <PageTemplate v-bind="pageData" :gallery-first="true" />
 
   <section class="contacts">
     <div class="contacts__head">

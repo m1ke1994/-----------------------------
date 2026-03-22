@@ -185,17 +185,18 @@ onUnmounted(() => {
 }
 
 .app-header__inner {
-  max-width: var(--container-max);
+  max-width: 1320px;
+  width: 100%;
   margin: 0 auto;
-  padding: 12px 18px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   box-sizing: border-box;
 }
 
 .app-header__brand {
-  margin-right: 14px;
+  margin-right: clamp(10px, 1vw, 18px);
   color: var(--color-dark-deep);
   font-family: var(--font-brand);
   font-size: clamp(21px, 2vw, 29px);
@@ -208,15 +209,16 @@ onUnmounted(() => {
 .app-header__links {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
   flex-wrap: nowrap;
-  gap: clamp(8px, 0.8vw, 12px);
-  margin-right: auto;
+  gap: clamp(8px, 0.75vw, 12px);
   min-width: 0;
 }
 
 .app-header__link {
   font-family: var(--font-menu);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   line-height: 1.2;
   color: var(--text);
@@ -251,10 +253,10 @@ onUnmounted(() => {
 }
 
 .app-header__actions {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 8px;
-  margin-left: auto;
+  margin-left: 0;
   flex-shrink: 0;
 }
 
@@ -385,6 +387,11 @@ onUnmounted(() => {
 
   .app-header__inner {
     padding: 12px 14px;
+  }
+
+  .app-header__actions {
+    display: inline-flex;
+    margin-left: auto;
   }
 
   .app-header__brand {
