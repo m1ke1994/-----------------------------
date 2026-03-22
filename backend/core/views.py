@@ -2,7 +2,7 @@ from rest_framework import generics, mixins, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Article, HeroBlock, News, Review, ScheduleDay, Service
+from .models import Article, HeroBlock, News, Review, ScheduleDay, Service, SiteSettings
 from .serializers import (
     ArticleListSerializer,
     ArticleSerializer,
@@ -12,7 +12,15 @@ from .serializers import (
     ReviewSerializer,
     ScheduleDaySerializer,
     ServiceSerializer,
+    SiteSettingsSerializer,
 )
+
+DEFAULT_SITE_SETTINGS = {
+    "phone": "+7 (985) 200-63-22",
+    "email": "elizaveta-struchkova@yandex.ru",
+    "telegram_url": "https://t.me/novoe_konakovo",
+    "telegram_username": "@novoe_konakovo",
+}
 
 
 class HeroBlockAPIView(APIView):
@@ -25,6 +33,16 @@ class HeroBlockAPIView(APIView):
             )
 
         serializer = HeroBlockSerializer(hero, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SiteSettingsAPIView(APIView):
+    def get(self, request):
+        site_settings = SiteSettings.objects.order_by("id").first()
+        if site_settings is None:
+            site_settings = SiteSettings(**DEFAULT_SITE_SETTINGS)
+
+        serializer = SiteSettingsSerializer(site_settings, context={"request": request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

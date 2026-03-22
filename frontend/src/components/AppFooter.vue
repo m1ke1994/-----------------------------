@@ -19,24 +19,24 @@
             <router-link class="footer__link" to="/contacts">Контакты</router-link>
           </nav>
 
-          <div class="footer__contacts">
-            <div class="footer__contact-item">
+          <div v-if="hasContacts" class="footer__contacts">
+            <div v-if="siteSettings.phone" class="footer__contact-item">
               <span class="footer__label">Телефон</span>
-              <span>+7 (985) 200-63-22</span>
+              <a class="footer__contact-link" :href="phoneHref">{{ siteSettings.phone }}</a>
             </div>
-            <div class="footer__contact-item">
+            <div v-if="siteSettings.email" class="footer__contact-item">
               <span class="footer__label">Email</span>
-              <span>elizaveta-struchkova@yandex.ru</span>
+              <a class="footer__contact-link" :href="emailHref">{{ siteSettings.email }}</a>
             </div>
-            <div class="footer__contact-item">
+            <div v-if="siteSettings.telegram_url" class="footer__contact-item">
               <span class="footer__label">Telegram</span>
               <a
-                :href="TELEGRAM_URL"
+                :href="siteSettings.telegram_url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="telegram-link"
+                class="footer__contact-link telegram-link"
               >
-                {{ TELEGRAM_USERNAME }}
+                {{ siteSettings.telegram_username || "Telegram" }}
               </a>
             </div>
           </div>
@@ -56,9 +56,34 @@
 </template>
 
 <script setup>
+import { computed, onMounted, ref } from "vue"
+import { getSiteSettings } from "../api/siteSettings"
+
 const year = new Date().getFullYear()
-const TELEGRAM_URL = "https://t.me/novoe_konakovo"
-const TELEGRAM_USERNAME = "@novoe_konakovo"
+const siteSettings = ref({
+  phone: "",
+  email: "",
+  telegram_url: "",
+  telegram_username: "",
+})
+
+const hasContacts = computed(
+  () => Boolean(siteSettings.value.phone || siteSettings.value.email || siteSettings.value.telegram_url)
+)
+
+const phoneHref = computed(() => {
+  const safePhone = String(siteSettings.value.phone || "").replace(/[^+\d]/g, "")
+  return safePhone ? `tel:${safePhone}` : ""
+})
+
+const emailHref = computed(() => {
+  const email = String(siteSettings.value.email || "").trim()
+  return email ? `mailto:${email}` : ""
+})
+
+onMounted(async () => {
+  siteSettings.value = await getSiteSettings()
+})
 
 const scrollToTop = () => {
   if (typeof window === 'undefined') return
@@ -202,6 +227,15 @@ const scrollToTop = () => {
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.footer__contact-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer__contact-link:hover {
+  text-decoration: underline;
 }
 
 .telegram-link {

@@ -9,6 +9,7 @@ from .models import (
     ScheduleEvent,
     Service,
     ServiceImage,
+    SiteSettings,
     Tariff,
 )
 
@@ -34,6 +35,12 @@ class HeroBlockSerializer(serializers.ModelSerializer):
 
     def get_avatar(self, obj):
         return self._absolute_url(obj.avatar)
+
+
+class SiteSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SiteSettings
+        fields = ("phone", "email", "telegram_url", "telegram_username")
 
 
 class ReviewSerializer(serializers.ModelSerializer):

@@ -13,6 +13,7 @@ from .models import (
     ScheduleEvent,
     Service,
     ServiceImage,
+    SiteSettings,
     Tariff,
 )
 
@@ -54,6 +55,20 @@ class HeroBlockAdmin(admin.ModelAdmin):
                 obj.avatar.url,
             )
         return "Изображение не загружено"
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    list_display = ("phone", "email", "telegram_username", "updated_at")
+    fields = ("phone", "email", "telegram_url", "telegram_username")
+
+    def has_add_permission(self, request):
+        if SiteSettings.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 admin.site.site_header = "Администрирование"

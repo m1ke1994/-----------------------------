@@ -31,6 +31,39 @@ class HeroBlock(models.Model):
         return self.title
 
 
+class SiteSettings(models.Model):
+    phone = models.CharField(
+        max_length=255,
+        blank=True,
+        default="+7 (985) 200-63-22",
+        verbose_name="Телефон",
+    )
+    email = models.EmailField(
+        blank=True,
+        default="elizaveta-struchkova@yandex.ru",
+        verbose_name="Email",
+    )
+    telegram_url = models.URLField(
+        blank=True,
+        default="https://t.me/novoe_konakovo",
+        verbose_name="Ссылка Telegram",
+    )
+    telegram_username = models.CharField(
+        max_length=255,
+        blank=True,
+        default="@novoe_konakovo",
+        verbose_name="Подпись Telegram",
+    )
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Обновлено")
+
+    class Meta:
+        verbose_name = "Настройки сайта"
+        verbose_name_plural = "Настройки сайта"
+
+    def __str__(self):
+        return "Настройки сайта"
+
+
 class Review(models.Model):
     class RatingChoices(models.IntegerChoices):
         ONE = 1, "1"

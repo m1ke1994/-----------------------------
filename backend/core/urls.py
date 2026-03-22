@@ -10,6 +10,7 @@ from .views import (
     ReviewViewSet,
     ScheduleViewSet,
     ServiceViewSet,
+    SiteSettingsAPIView,
 )
 
 router = DefaultRouter()
@@ -19,6 +20,7 @@ router.register("schedule", ScheduleViewSet, basename="schedule")
 
 urlpatterns = [
     path("hero/", HeroBlockAPIView.as_view(), name="hero-api"),
+    path("site-settings/", SiteSettingsAPIView.as_view(), name="site-settings-api"),
     path("articles/", ArticleListAPIView.as_view(), name="articles-list"),
     path("articles/<slug:slug>/", ArticleDetailAPIView.as_view(), name="articles-detail"),
     path("news/", NewsListAPIView.as_view(), name="news-list"),
