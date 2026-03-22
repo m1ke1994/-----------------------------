@@ -8,7 +8,7 @@ class PageSectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PageSection
-        fields = ("title", "text", "image", "order")
+        fields = ("id", "title", "text", "image", "order")
 
     def get_image(self, obj):
         request = self.context.get("request")
@@ -24,7 +24,7 @@ class PageGalleryImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PageGalleryImage
-        fields = ("image", "order")
+        fields = ("id", "image", "order")
 
     def get_image(self, obj):
         request = self.context.get("request")

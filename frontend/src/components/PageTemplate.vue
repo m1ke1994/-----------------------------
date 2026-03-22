@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { formatRichText } from '../utils/richText'
 
 const props = defineProps({
   title: { type: String, default: '' },
@@ -22,6 +23,40 @@ let galleryObserver = null
 
 const galleryRef = ref(null)
 const isGalleryVisible = ref(false)
+
+const formattedSubtitle = computed(() => formatRichText(props.subtitle))
+
+const normalizedSections = computed(() =>
+  (Array.isArray(props.sections) ? props.sections : []).map((section, index) => ({
+    ...section,
+    id: `${section?.title || "section"}-${index}`,
+    textHtml: formatRichText(section?.text),
+  }))
+)
+
+const normalizedGallery = computed(() =>
+  (Array.isArray(props.gallery) ? props.gallery : [])
+    .map((item, index) => {
+      if (typeof item === "string") {
+        const imageUrl = item.trim()
+        if (!imageUrl) return null
+        return { id: `gallery-${index}`, image: imageUrl, order: index }
+      }
+
+      const imageUrl = String(item?.image || item?.image_url || "").trim()
+      if (!imageUrl) return null
+      return {
+        id: item?.id ?? `gallery-${index}`,
+        image: imageUrl,
+        order: Number.isFinite(Number(item?.order)) ? Number(item.order) : index,
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.order - b.order)
+)
+
+const hasSingleGalleryImage = computed(() => normalizedGallery.value.length === 1)
+const hasMultipleGalleryImages = computed(() => normalizedGallery.value.length > 1)
 
 const heroStyle = computed(() => ({
   backgroundImage: props.heroImage
@@ -72,7 +107,7 @@ onUnmounted(() => {
     <header class="page__hero" :style="heroStyle">
       <div class="page__hero-inner" v-reveal>
         <h1 class="page__title">{{ title }}</h1>
-        <p v-if="subtitle" class="page__subtitle">{{ subtitle }}</p>
+        <div v-if="formattedSubtitle" class="page__subtitle rich-text" v-html="formattedSubtitle"></div>
         <div v-if="stats.length" class="page__stats">
           <div v-for="stat in stats" :key="stat.label" class="page__stat" v-reveal>
             <div class="page__stat-value">{{ stat.value }}</div>
@@ -106,20 +141,20 @@ onUnmounted(() => {
       </div>
 
       <div
-        v-if="sections.length"
+        v-if="normalizedSections.length"
         class="page__sections"
         :class="{ 'page__sections--after-gallery': galleryFirst }"
       >
-        <article v-for="section in sections" :key="section.title" class="page__section glass-card" v-reveal>
+        <article v-for="section in normalizedSections" :key="section.id" class="page__section glass-card" v-reveal>
           <h2 class="page__section-title">{{ section.title }}</h2>
-          <p class="page__section-text">{{ section.text }}</p>
+          <div v-if="section.textHtml" class="page__section-text rich-text" v-html="section.textHtml"></div>
           <a v-if="section.action" class="page__action btn-secondary" :href="section.action.href">{{ section.action.label }}</a>
           <div v-if="section.isMap" class="page__map">Map placeholder</div>
         </article>
       </div>
 
       <section
-        v-if="gallery.length"
+        v-if="normalizedGallery.length"
         ref="galleryRef"
         class="page__gallery-block"
         :class="{ 'page__gallery-block--first': galleryFirst }"
@@ -129,14 +164,29 @@ onUnmounted(() => {
             <h2 class="page__gallery-title">{{ galleryTitle }}</h2>
             <p v-if="gallerySubtitle" class="page__gallery-subtitle">{{ gallerySubtitle }}</p>
           </div>
-          <span class="page__gallery-count">{{ gallery.length }} фото</span>
+          <span v-if="hasMultipleGalleryImages" class="page__gallery-count">{{ normalizedGallery.length }} фото</span>
         </div>
 
-        <div class="page__gallery">
-          <div v-for="(image, index) in gallery" :key="`${image}-${index}`" class="page__gallery-item" v-reveal>
+        <figure v-if="hasSingleGalleryImage" class="page__gallery-single" v-reveal>
+          <img
+            v-if="isGalleryVisible"
+            :src="normalizedGallery[0].image"
+            alt="Фото галереи"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            width="1200"
+            height="800"
+            class="img-lazy"
+            @load="markImageLoaded"
+          />
+        </figure>
+
+        <div v-else class="page__gallery">
+          <div v-for="image in normalizedGallery" :key="image.id" class="page__gallery-item" v-reveal>
             <img
               v-if="isGalleryVisible"
-              :src="image"
+              :src="image.image"
               alt="Фото галереи"
               loading="lazy"
               decoding="async"
@@ -392,6 +442,47 @@ onUnmounted(() => {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.page__gallery-single {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 18px var(--shadow);
+  background: rgba(0, 0, 0, 0.06);
+  aspect-ratio: 16 / 10;
+}
+
+.page__gallery-single img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rich-text :deep(p) {
+  margin: 0;
+}
+
+.rich-text :deep(p + p) {
+  margin-top: 10px;
+}
+
+.rich-text :deep(ul),
+.rich-text :deep(ol) {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.rich-text :deep(ul + p),
+.rich-text :deep(ol + p),
+.rich-text :deep(p + ul),
+.rich-text :deep(p + ol) {
+  margin-top: 10px;
+}
+
+.rich-text :deep(li + li) {
+  margin-top: 6px;
 }
 
 .page__cta {
