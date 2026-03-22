@@ -2,21 +2,11 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import BurgerMenuButton from './Profile/BurgerMenuButton.vue'
+import { MAIN_MENU_ITEMS } from '../data/navigation'
 
 const route = useRoute()
-const servicesMenuLabel = '\u0423\u0441\u043b\u0443\u0433\u0438 \u0438 \u0446\u0435\u043d\u044b'
 const contactsCtaLabel = '\u0421\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f \u0441\u043e \u043c\u043d\u043e\u0439'
-const menuItems = [
-  { label: 'Обо мне', to: '/about' },
-  { label: 'Братство Лосей', to: '/brotherhood' },
-  { label: 'Волонтерские программы', to: '/volunteer' },
-  { label: 'Беговой клуб', to: '/running-club' },
-  { label: servicesMenuLabel, href: '/#services', mobileOnly: true },
-  { label: 'Статьи / Видео', to: '/articles' },
-  { label: 'Новости', to: '/news' },
-  { label: 'Расписание', to: '/schedule' },
-  { label: 'Контакты', to: '/contacts' },
-]
+const menuItems = MAIN_MENU_ITEMS
 
 const isMenuOpen = ref(false)
 const isSticky = ref(false)
@@ -99,7 +89,7 @@ onUnmounted(() => {
         <nav class="app-header__links">
           <template v-for="item in menuItems" :key="item.to || item.href">
             <router-link
-              v-if="item.to && !item.mobileOnly"
+              v-if="item.to"
               :to="item.to"
               class="app-header__link"
               active-class="app-header__link--active"
@@ -108,7 +98,7 @@ onUnmounted(() => {
               {{ item.label }}
             </router-link>
             <a
-              v-else-if="!item.mobileOnly"
+              v-else
               :href="item.href"
               class="app-header__link"
               @click="closeMenu"

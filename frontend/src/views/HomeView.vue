@@ -11,18 +11,8 @@ import ArticleCard from "../components/ArticleCard.vue";
 import NewsCard from "../components/NewsCard.vue";
 import { getArticles } from "../api/articles";
 import { getNewsList } from "../api/news";
-
-const menuItems = [
-  { label: "Обо мне", to: "/about" },
-  { label: "Братство Лосей", to: "/brotherhood" },
-  { label: "Волонтерские программы", to: "/volunteer" },
-  { label: "Беговой клуб", to: "/running-club" },
-  { label: "Услуги и цены", href: "#services", mobileOnly: true },
-  { label: "Статьи / Видео", to: "/articles" },
-  { label: "Новости", to: "/news" },
-  { label: "Расписание", to: "/schedule" },
-  { label: "Контакты", to: "/contacts" },
-];
+import { MAIN_MENU_ITEMS } from "../data/navigation";
+const menuItems = MAIN_MENU_ITEMS;
 
 const loadingArticles = ref(false);
 const articleError = ref("");
@@ -84,6 +74,21 @@ onMounted(() => {
       <div class="profile-content">
         <ProfileHero :menu-items="menuItems" />
 
+        <section id="about" class="app-section app-section--about" v-reveal>
+          <div class="app-section__inner">
+            <h2 class="app-section__title">Обо мне</h2>
+            <div class="about-home glass-card">
+              <p class="about-home__text">
+                Я провожу авторские форматы отдыха и практики в «Новом Конаково»: от спокойных прогулок
+                и чаепитий до глубоких тематических встреч на природе.
+              </p>
+              <router-link class="about-home__link btn-secondary" to="/about">
+                Подробнее обо мне
+              </router-link>
+            </div>
+          </div>
+        </section>
+
         <section id="services" class="app-section" v-reveal>
           <div class="app-section__inner">
             <h2 class="app-section__title">Услуги и форматы</h2>
@@ -93,10 +98,19 @@ onMounted(() => {
           </div>
         </section>
 
+        <section id="feedback" class="app-section" v-reveal>
+          <div class="app-section__inner">
+            <h2 class="app-section__title">Собери сценарий дня</h2>
+            <div class="app-section__content">
+              <FeedbackSection />
+            </div>
+          </div>
+        </section>
+
         <section id="articles" class="app-section" v-reveal>
           <div class="app-section__inner">
             <div class="articles-home__head">
-              <h2 class="app-section__title articles-home__title">Статьи / Видео</h2>
+              <h2 class="app-section__title articles-home__title">Статьи и видео</h2>
             </div>
 
             <div class="articles-home__grid">
@@ -110,7 +124,7 @@ onMounted(() => {
             </div>
             <p v-if="articleError">{{ articleError }}</p>
             <div class="articles-home__footer">
-              <router-link class="articles-home__link btn-secondary" to="/articles">Все материалы / Видео</router-link>
+              <router-link class="articles-home__link btn-secondary" to="/articles">Все статьи и видео</router-link>
             </div>
           </div>
         </section>
@@ -120,15 +134,6 @@ onMounted(() => {
             <h2 class="app-section__title">Расписание занятий</h2>
             <div class="app-section__content">
               <ScheduleSection />
-            </div>
-          </div>
-        </section>
-
-        <section id="feedback" class="app-section" v-reveal>
-          <div class="app-section__inner">
-            <h2 class="app-section__title">Собери сценарий дня</h2>
-            <div class="app-section__content">
-              <FeedbackSection />
             </div>
           </div>
         </section>
@@ -212,6 +217,26 @@ onMounted(() => {
   width: 100%;
 }
 
+.app-section--about {
+  padding-top: 40px;
+}
+
+.about-home {
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.about-home__text {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.about-home__link {
+  justify-self: start;
+}
+
 .articles-home__head {
   display: grid;
   gap: 12px;
@@ -279,6 +304,11 @@ onMounted(() => {
 
   .app-section__title {
     font-size: 24px;
+  }
+
+  .about-home__link {
+    width: 100%;
+    justify-content: center;
   }
 
   .articles-home__grid {
