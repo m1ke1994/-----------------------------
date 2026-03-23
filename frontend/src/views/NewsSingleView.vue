@@ -121,6 +121,7 @@ onMounted(() => {
 
 .news-single__text p {
   margin: 0 0 14px;
+  white-space: pre-line;
 }
 
 .news-single__not-found {

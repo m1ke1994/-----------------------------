@@ -140,6 +140,7 @@ onMounted(() => {
   margin: 0;
   color: var(--text);
   line-height: 1.75;
+  white-space: pre-line;
 }
 
 .news-detail__empty {

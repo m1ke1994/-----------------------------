@@ -75,6 +75,7 @@ const props = defineProps({
   font-size: var(--font-size-small);
   line-height: var(--line-height-body);
   color: var(--muted);
+  white-space: pre-line;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

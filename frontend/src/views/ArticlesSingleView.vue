@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue";
 import { getArticleBySlug } from "../api/articles";
+import { formatRichText } from "../utils/richText";
 
 const route = useRoute();
 
@@ -19,6 +20,8 @@ const formattedDate = computed(() => {
     year: "numeric",
   });
 });
+
+const formattedContent = computed(() => formatRichText(article.value?.content || ""));
 
 const loadArticle = async () => {
   loading.value = true;
@@ -65,7 +68,7 @@ onMounted(() => {
         ></iframe>
       </div>
 
-      <div class="single-article__text" v-html="article.content"></div>
+      <div class="single-article__text" v-html="formattedContent"></div>
     </section>
 
     <section v-else class="single-article__not-found glass-card">
