@@ -87,7 +87,7 @@ onMounted(() => {
 .news-detail__back {
   width: fit-content;
   color: var(--text-strong);
-  font-size: 14px;
+  font-size: var(--font-size-base);
 }
 
 .news-detail__article {
@@ -121,11 +121,11 @@ onMounted(() => {
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--card) 74%, transparent);
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: var(--font-size-base);
 }
 
 .news-detail__date {
-  font-size: 12px;
+  font-size: var(--font-size-base);
   color: var(--muted);
 }
 

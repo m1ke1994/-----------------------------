@@ -317,13 +317,13 @@ watch(
 
 .service-page__meta {
   margin: 0;
-  font-size: 14.5px;
+  font-size: var(--font-size-base);
   color: var(--muted);
 }
 
 .service-page__price {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--font-size-base);
   font-weight: 700;
   color: var(--color-dark-deep);
 }
@@ -439,7 +439,7 @@ watch(
 
   .service-page__text,
   .service-page__subtitle {
-    font-size: 15px;
+    font-size: var(--font-size-base);
   }
 
   .service-page__choose {

@@ -244,7 +244,7 @@ onBeforeUnmount(() => {
 }
 
 .service__name {
-  font-size: 15px;
+  font-size: var(--font-size-base);
 }
 
 .service__toggle {
@@ -262,29 +262,31 @@ onBeforeUnmount(() => {
 
 .tariff__row {
   display: grid;
-  grid-template-columns: 1fr 90px 36px;
+  grid-template-columns: 1fr 130px 44px;
   align-items: center;
   gap: 10px;
 }
 
 .tariff__title {
-  font-size: 13px;
+  font-size: var(--font-size-base);
   font-weight: 600;
 }
 
 .tariff__price {
   text-align: right;
-  font-size: 13px;
+  font-size: var(--font-size-base);
   font-weight: 600;
 }
 
 .tariff__btn {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 6px;
   border: 1px solid var(--border);
   background: transparent;
   cursor: pointer;
+  font-size: var(--font-size-base);
+  line-height: 1;
 }
 
 .tariff__btn.active {
@@ -294,7 +296,7 @@ onBeforeUnmount(() => {
 }
 
 .tariff__desc {
-  font-size: 12px;
+  font-size: var(--font-size-base);
   color: var(--muted);
   margin-top: 4px;
 }
@@ -312,8 +314,8 @@ onBeforeUnmount(() => {
 
 .panel input,
 .panel textarea {
-  padding: 8px;
-  font-size: 13px;
+  padding: 10px;
+  font-size: var(--font-size-base);
   border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--bg-elevated);
@@ -322,18 +324,18 @@ onBeforeUnmount(() => {
 .summary__row {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--font-size-base);
   margin-bottom: 6px;
 }
 
 .summary__item {
-  font-size: 12px;
+  font-size: var(--font-size-base);
   color: var(--muted);
 }
 
 .form-success {
   color: #2e7d32;
-  font-size: 14px;
+  font-size: var(--font-size-base);
   margin-top: 10px;
 }
 

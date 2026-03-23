@@ -272,7 +272,7 @@ onUnmounted(() => {
 }
 
 .reviews__text {
-  font-size: 16px;
+  font-size: var(--font-size-base);
   font-style: italic;
   color: var(--text);
   margin: 0;
@@ -285,7 +285,7 @@ onUnmounted(() => {
 }
 
 .reviews__meta {
-  font-size: 13px;
+  font-size: var(--font-size-base);
   color: var(--muted);
 }
 

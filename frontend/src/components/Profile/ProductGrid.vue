@@ -198,14 +198,14 @@ const markImageLoaded = (event) => {
   align-items: center;
   padding: 7px 10px;
   border-radius: 999px;
-  font-size: 12.5px;
+  font-size: var(--font-size-base);
   color: var(--text);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
 }
 
 .price {
-  font-size: 14px;
+  font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--text-strong);
   padding: 7px 10px;
@@ -216,7 +216,7 @@ const markImageLoaded = (event) => {
 
 .description {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--font-size-base);
   line-height: 1.55;
   color: var(--muted);
   display: -webkit-box;
@@ -232,7 +232,7 @@ const markImageLoaded = (event) => {
 }
 
 .product-grid__more {
-  font-size: 14px;
+  font-size: var(--font-size-base);
 }
 
 .arrow {
@@ -267,7 +267,7 @@ const markImageLoaded = (event) => {
   }
 
   .description {
-    font-size: 13.5px;
+    font-size: var(--font-size-base);
   }
 }
 </style>

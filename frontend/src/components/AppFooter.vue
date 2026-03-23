@@ -252,6 +252,7 @@ const scrollToTop = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
   color: var(--muted);
   font-size: var(--font-size-caption);
@@ -262,6 +263,7 @@ const scrollToTop = () => {
 .footer__bottom-links {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 14px;
 }
 

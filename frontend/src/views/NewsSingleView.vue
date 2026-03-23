@@ -84,7 +84,7 @@ onMounted(() => {
   border: 1px solid var(--border);
   background: var(--primary-soft);
   color: var(--text-strong);
-  font-size: 13px;
+  font-size: var(--font-size-base);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
@@ -95,7 +95,7 @@ onMounted(() => {
 
 .news-single__date {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--font-size-base);
   color: var(--muted);
 }
 
@@ -115,7 +115,7 @@ onMounted(() => {
 
 .news-single__text {
   color: var(--text);
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 1.72;
 }
 
@@ -142,7 +142,7 @@ onMounted(() => {
   }
 
   .news-single__text {
-    font-size: 15px;
+    font-size: var(--font-size-base);
   }
 }
 </style>

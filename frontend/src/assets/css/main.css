@@ -9,13 +9,13 @@
   --font-brand: "Hitch Hike", "Cormorant Garamond", "Times New Roman", serif;
   --font-menu: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   --font-text: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-  --font-size-base: 18px;
-  --font-size-small: calc(var(--font-size-base) - 2px);
-  --font-size-caption: calc(var(--font-size-base) - 4px);
-  --font-size-button: calc(var(--font-size-base) - 2px);
-  --font-size-menu: calc(var(--font-size-base) - 3px);
-  --line-height-base: 1.68;
-  --line-height-body: 1.72;
+  --font-size-base: 20px;
+  --font-size-small: var(--font-size-base);
+  --font-size-caption: var(--font-size-base);
+  --font-size-button: var(--font-size-base);
+  --font-size-menu: var(--font-size-base);
+  --line-height-base: 1.6;
+  --line-height-body: 1.65;
   --line-height-tight: 1.35;
   --line-height-heading: 1.18;
   --bg: var(--color-background-main);
@@ -75,7 +75,13 @@ body {
 }
 
 p,
-li {
+li,
+a,
+label,
+input,
+textarea,
+select,
+button {
   font-size: 1rem;
   line-height: var(--line-height-body);
 }
@@ -113,9 +119,9 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   border-radius: 12px;
-  padding: 10px 16px;
+  padding: 12px 20px;
   font-size: var(--font-size-button);
   font-weight: 600;
   line-height: var(--line-height-tight);

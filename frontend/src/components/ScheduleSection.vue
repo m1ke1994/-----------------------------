@@ -485,8 +485,8 @@ onBeforeUnmount(() => {
   background: var(--bg-elevated);
   color: var(--text);
   border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 13px;
+  padding: 9px 14px;
+  font-size: var(--font-size-base);
   cursor: pointer;
   white-space: nowrap;
   flex: 0 0 auto;
@@ -513,12 +513,12 @@ onBeforeUnmount(() => {
 }
 
 .month-schedule__day {
-  min-width: 68px;
-  padding: 7px 8px;
+  min-width: 92px;
+  padding: 9px 10px;
   border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--bg-elevated);
-  font-size: 11px;
+  font-size: var(--font-size-base);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -544,7 +544,7 @@ onBeforeUnmount(() => {
 }
 
 .month-schedule__meta {
-  font-size: 12px;
+  font-size: var(--font-size-base);
   color: var(--muted);
   display: inline-flex;
   align-items: center;
@@ -574,7 +574,7 @@ onBeforeUnmount(() => {
 }
 
 .month-schedule__date {
-  font-size: 14px;
+  font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--text-strong);
   width: 100%;
@@ -609,7 +609,7 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: var(--font-size-base);
   font-weight: 700;
   color: var(--text-strong);
   background: color-mix(in srgb, var(--primary) 22%, var(--bg-elevated));
@@ -653,7 +653,7 @@ onBeforeUnmount(() => {
   color: var(--text-strong);
   border-radius: 999px;
   padding: 9px 14px;
-  font-size: 13px;
+  font-size: var(--font-size-base);
   cursor: pointer;
   transition: transform 120ms ease, border-color 120ms ease;
 }
@@ -693,7 +693,7 @@ onBeforeUnmount(() => {
 }
 
 .program-card__meta {
-  font-size: 12px;
+  font-size: var(--font-size-base);
   color: var(--muted);
 }
 
@@ -744,7 +744,7 @@ onBeforeUnmount(() => {
   }
 
   .month-schedule__day {
-    min-width: 64px;
+    min-width: 86px;
   }
 
   .program-card {

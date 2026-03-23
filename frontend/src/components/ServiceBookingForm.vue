@@ -228,7 +228,7 @@ onBeforeUnmount(() => {
 .service-booking__subtitle {
   margin: 0;
   color: var(--muted);
-  font-size: 17px;
+  font-size: var(--font-size-base);
   line-height: 1.6;
 }
 
@@ -243,7 +243,7 @@ onBeforeUnmount(() => {
 }
 
 .service-booking__label {
-  font-size: 13px;
+  font-size: var(--font-size-base);
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -255,7 +255,7 @@ onBeforeUnmount(() => {
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
   padding: 11px 12px;
-  font-size: 15px;
+  font-size: var(--font-size-base);
   color: var(--text);
   outline: none;
 }

@@ -125,7 +125,7 @@ const page = {
 .content-page__subtitle {
   margin: 0;
   color: var(--muted);
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 1.6;
 }
 
@@ -147,7 +147,7 @@ const page = {
 
 .content-page__text {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 1.75;
   color: var(--text);
 }
@@ -177,7 +177,7 @@ const page = {
   }
 
   .content-page__text {
-    font-size: 15px;
+    font-size: var(--font-size-base);
   }
 }
 </style>

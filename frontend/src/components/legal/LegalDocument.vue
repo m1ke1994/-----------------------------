@@ -49,14 +49,14 @@ defineProps({
 .legal__subtitle {
   margin: 0;
   color: var(--muted);
-  font-size: 16px;
+  font-size: var(--font-size-base);
   max-width: 880px;
 }
 
 .legal__updated {
   margin: 12px 0 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--font-size-base);
 }
 
 .legal__sections {

@@ -47,7 +47,7 @@ onMounted(() => {
   color: var(--text);
   border-radius: 999px;
   padding: 8px 12px;
-  font-size: 12.5px;
+  font-size: var(--font-size-base);
   cursor: pointer;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
@@ -58,19 +58,19 @@ onMounted(() => {
 }
 
 .theme-toggle__icon {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--font-size-base);
   background: color-mix(in srgb, var(--card) 70%, transparent);
 }
 
 .theme-toggle--icon {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border-radius: 50%;
 }

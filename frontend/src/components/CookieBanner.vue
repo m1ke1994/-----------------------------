@@ -63,8 +63,8 @@ onMounted(() => {
 .cookie-banner__text {
   margin: 0;
   color: var(--text);
-  font-size: 14px;
-  line-height: 1.45;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-body);
 }
 
 .cookie-banner__button {

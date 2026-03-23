@@ -292,7 +292,7 @@ onUnmounted(() => {
 
 .page__highlight-title {
   margin: 0 0 8px;
-  font-size: var(--font-size-base);
+  font-size: 16px;
 }
 
 .page__highlight-text {
@@ -337,7 +337,7 @@ onUnmounted(() => {
 
 .page__timeline-title {
   margin: 0 0 6px;
-  font-size: var(--font-size-base);
+  font-size: 16px;
 }
 
 .page__timeline-text {

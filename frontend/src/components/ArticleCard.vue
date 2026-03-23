@@ -54,7 +54,7 @@ const props = defineProps({
   justify-content: center;
   background: color-mix(in srgb, var(--color-dark-deep) 78%, transparent);
   color: var(--color-background-light);
-  font-size: var(--font-size-small);
+  font-size: 15px;
 }
 
 .article-card__content {

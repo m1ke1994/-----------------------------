@@ -520,7 +520,7 @@ onUnmounted(() => {
 
 .avatar__placeholder {
     color: var(--muted);
-    font-size: 14px;
+    font-size: var(--font-size-base);
 }
 
 .info {
