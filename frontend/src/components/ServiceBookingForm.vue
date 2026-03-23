@@ -29,14 +29,10 @@ const hasSelectedService = computed(() => {
   return Boolean(title && slug);
 });
 
-const serviceTitle = computed(() => String(props.service?.title || ""));
-
 const tariffs = computed(() =>
   Array.isArray(props.service?.tariffs) ? props.service.tariffs : []
 );
 const hasTariffs = computed(() => hasSelectedService.value && tariffs.value.length > 0);
-
-const formatPrice = (price) => `${Number(price || 0).toLocaleString("ru-RU")} ₽`;
 
 const selectedTariffResolved = computed(() => {
   if (!hasTariffs.value || !selectedTariffId.value) return null;
@@ -161,26 +157,6 @@ onBeforeUnmount(() => {
       Оставьте контакт, и мы свяжемся с вами для подтверждения записи.
     </p>
 
-    <p v-if="!hasSelectedService" class="service-booking__hint">
-      Сначала выберите услугу.
-    </p>
-
-    <div v-if="hasSelectedService" class="service-booking__summary">
-      <h3 class="service-booking__summary-title">Вы выбрали</h3>
-
-      <article class="service-booking__summary-card">
-        <h4 class="service-booking__summary-name">{{ serviceTitle || "Услуга" }}</h4>
-      </article>
-
-      <article v-if="selectedTariffResolved" class="service-booking__summary-card service-booking__summary-card--tariff">
-        <h4 class="service-booking__summary-name">{{ selectedTariffResolved.title }}</h4>
-        <p class="service-booking__summary-meta">{{ formatPrice(selectedTariffResolved.price) }}</p>
-        <p v-if="selectedTariffResolved.duration" class="service-booking__summary-meta">
-          {{ selectedTariffResolved.duration }}
-        </p>
-      </article>
-    </div>
-
     <form class="service-booking__form" @submit.prevent="handleSubmit" novalidate>
       <label class="service-booking__field">
         <span class="service-booking__label">Имя</span>
@@ -252,61 +228,8 @@ onBeforeUnmount(() => {
 .service-booking__subtitle {
   margin: 0;
   color: var(--muted);
+  font-size: 17px;
   line-height: 1.6;
-}
-
-.service-booking__hint {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.service-booking__summary {
-  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--bg-elevated) 55%, transparent);
-  padding: 14px;
-  display: grid;
-  gap: 10px;
-}
-
-.service-booking__summary-title {
-  margin: 0;
-  font-size: 14px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.service-booking__summary-card {
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-  background: color-mix(in srgb, var(--bg) 75%, transparent);
-  display: grid;
-  gap: 6px;
-}
-
-.service-booking__summary-card--tariff {
-  background: color-mix(in srgb, var(--primary-soft) 40%, var(--bg));
-}
-
-.service-booking__summary-name {
-  margin: 0;
-  font-size: 16px;
-  color: var(--text-strong);
-}
-
-.service-booking__summary-text {
-  margin: 0;
-  color: var(--text);
-  line-height: 1.6;
-}
-
-.service-booking__summary-meta {
-  margin: 0;
-  font-size: 14px;
-  color: var(--muted);
 }
 
 .service-booking__form {
@@ -320,7 +243,7 @@ onBeforeUnmount(() => {
 }
 
 .service-booking__label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -332,7 +255,7 @@ onBeforeUnmount(() => {
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
   padding: 11px 12px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text);
   outline: none;
 }

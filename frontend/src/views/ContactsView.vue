@@ -250,7 +250,7 @@ onBeforeUnmount(() => {
 
 .contacts__subtitle {
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
 }
 
@@ -299,7 +299,7 @@ onBeforeUnmount(() => {
 
 .contacts__label {
   margin: 0 0 4px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -307,7 +307,7 @@ onBeforeUnmount(() => {
 
 .contacts__value {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text);
   line-height: 1.5;
 }
@@ -348,7 +348,7 @@ onBeforeUnmount(() => {
 }
 
 .contacts__field-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -360,7 +360,7 @@ onBeforeUnmount(() => {
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
   padding: 12px 14px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text);
   outline: none;
   transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
@@ -388,7 +388,7 @@ onBeforeUnmount(() => {
 
 .form-success {
   color: #2e7d32;
-  font-size: 14px;
+  font-size: 15px;
   margin-top: 10px;
 }
 

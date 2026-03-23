@@ -20,7 +20,7 @@ const slugPath = computed(() =>
 );
 
 const service = computed(() => getServiceByPath(slugPath.value));
-const bookingService = computed(() => selectedBookingService.value);
+const bookingService = computed(() => selectedBookingService.value || service.value || null);
 const hasTariffs = computed(() => Array.isArray(service.value?.tariffs) && service.value.tariffs.length > 0);
 const hasChildren = computed(() => Array.isArray(service.value?.children) && service.value.children.length > 0);
 const serviceImages = computed(() => {
@@ -76,11 +76,6 @@ const chooseChildService = (child) => {
     behavior: "smooth",
     block: "start",
   });
-};
-
-const chooseCurrentService = () => {
-  selectedBookingService.value = service.value || null;
-  selectedTariff.value = null;
 };
 
 const clearBookingSelection = () => {
@@ -194,14 +189,6 @@ watch(
       </section>
 
       <section ref="bookingSectionRef" class="service-page__section">
-        <div v-if="!bookingService" class="service-page__booking-empty glass-card">
-          <p class="service-page__text">
-            Выберите услугу, чтобы заполнить заявку.
-          </p>
-          <button class="btn-secondary service-page__booking-select" type="button" @click="chooseCurrentService">
-            Выбрать «{{ service.title }}»
-          </button>
-        </div>
         <ServiceBookingForm
           :service="bookingService"
           :selected-tariff="selectedTariff"
@@ -330,7 +317,7 @@ watch(
 
 .service-page__meta {
   margin: 0;
-  font-size: 13px;
+  font-size: 14.5px;
   color: var(--muted);
 }
 
@@ -435,16 +422,6 @@ watch(
   gap: 12px;
 }
 
-.service-page__booking-empty {
-  padding: 16px;
-  display: grid;
-  gap: 10px;
-}
-
-.service-page__booking-select {
-  justify-self: start;
-}
-
 @media (max-width: 900px) {
   .service-page__grid {
     grid-template-columns: 1fr;
@@ -466,11 +443,6 @@ watch(
   }
 
   .service-page__choose {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .service-page__booking-select {
     width: 100%;
     justify-content: center;
   }

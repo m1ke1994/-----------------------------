@@ -218,7 +218,7 @@ onUnmounted(() => {
 
 .app-header__link {
   font-family: var(--font-menu);
-  font-size: 12.5px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
   color: var(--text);
@@ -343,7 +343,7 @@ onUnmounted(() => {
   border: none;
   color: var(--text);
   font-family: var(--font-menu);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.3;
   position: relative;

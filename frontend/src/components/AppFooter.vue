@@ -173,7 +173,7 @@ const scrollToTop = () => {
 .footer__tagline {
   margin: 0;
   color: var(--muted);
-  font-size: 13.5px;
+  font-size: 15px;
 }
 
 .footer__nav {
@@ -185,7 +185,7 @@ const scrollToTop = () => {
 .footer__link {
   position: relative;
   color: var(--text);
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 1.65;
   padding-bottom: 2px;
   width: fit-content;
@@ -214,7 +214,7 @@ const scrollToTop = () => {
   display: grid;
   gap: 12px;
   color: var(--text);
-  font-size: 12.5px;
+  font-size: 14px;
 }
 
 .footer__contact-item {
@@ -223,7 +223,7 @@ const scrollToTop = () => {
 }
 
 .footer__label {
-  font-size: 11px;
+  font-size: 12.5px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -253,7 +253,7 @@ const scrollToTop = () => {
   justify-content: space-between;
   gap: 12px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13.5px;
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
   padding-top: 20px;
 }
@@ -265,7 +265,7 @@ const scrollToTop = () => {
 }
 
 .footer__link--small {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .footer__to-top {

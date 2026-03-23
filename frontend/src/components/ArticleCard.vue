@@ -54,7 +54,7 @@ const props = defineProps({
   justify-content: center;
   background: color-mix(in srgb, var(--color-dark-deep) 78%, transparent);
   color: var(--color-background-light);
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .article-card__content {
@@ -72,7 +72,7 @@ const props = defineProps({
 
 .article-card__description {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.5;
   color: var(--muted);
   display: -webkit-box;

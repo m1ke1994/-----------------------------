@@ -55,7 +55,7 @@ const formattedDate = computed(() =>
 
 .news-card__date {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
 
@@ -68,7 +68,7 @@ const formattedDate = computed(() =>
 
 .news-card__description {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.55;
   color: var(--muted);
   display: -webkit-box;

@@ -267,7 +267,7 @@ onUnmounted(() => {
 }
 
 .page__stat-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
 
@@ -314,7 +314,7 @@ onUnmounted(() => {
 }
 
 .page__quote-author {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
 
@@ -407,7 +407,7 @@ onUnmounted(() => {
 .page__gallery-subtitle {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .page__gallery-count {
@@ -418,7 +418,7 @@ onUnmounted(() => {
   padding: 6px 12px;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--card) 72%, transparent);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text);
   backdrop-filter: blur(10px);
 }
