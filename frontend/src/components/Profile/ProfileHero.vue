@@ -224,7 +224,7 @@ onUnmounted(() => {
     position: sticky;
     top: 16px;
     z-index: 60;
-    width: min(var(--container-max), calc(100% - 32px));
+    width: min(var(--header-container-max), calc(100% - 32px));
     margin: 16px auto 0;
     border-radius: 12px;
     background: color-mix(in srgb, var(--nav-surface) 60%, transparent);
@@ -240,19 +240,18 @@ onUnmounted(() => {
 }
 
 .hero-nav__inner {
-    padding: 10px 16px;
+    padding: 10px var(--container-gutter);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    gap: clamp(16px, 1.8vw, 28px);
     box-sizing: border-box;
 }
 
 .hero-nav__brand {
-    margin-right: 12px;
+    margin-right: 0;
     color: var(--color-dark-deep);
     font-family: var(--font-brand);
-    font-size: clamp(22px, 2.1vw, 30px);
+    font-size: clamp(22px, 1.9vw, 30px);
     line-height: 1;
     letter-spacing: 0.4px;
     text-shadow: none;
@@ -263,19 +262,20 @@ onUnmounted(() => {
 .hero-nav__links {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    flex: 1 1 auto;
     flex-wrap: nowrap;
-    gap: clamp(8px, 0.8vw, 12px);
-    margin-right: auto;
+    gap: clamp(12px, 1vw, 24px);
     min-width: 0;
 }
 
 .hero-nav__link {
     font-family: var(--font-menu);
-    font-size: 13px;
+    font-size: var(--font-size-menu);
     font-weight: 500;
-    line-height: 1.2;
+    line-height: var(--line-height-tight);
     color: var(--text);
-    padding: 6px 2px;
+    padding: 8px 1px;
     white-space: nowrap;
     border-radius: 0;
     background: transparent;
@@ -311,10 +311,10 @@ onUnmounted(() => {
 }
 
 .hero-nav__actions {
-    display: inline-flex;
+    display: none;
     align-items: center;
     gap: 8px;
-    margin-left: auto;
+    margin-left: 0;
     flex-shrink: 0;
 }
 
@@ -402,7 +402,7 @@ onUnmounted(() => {
     border: none;
     color: var(--text);
     font-family: var(--font-menu);
-    font-size: 14px;
+    font-size: var(--font-size-small);
     font-weight: 500;
     line-height: 1.3;
     position: relative;
@@ -542,13 +542,13 @@ onUnmounted(() => {
 }
 
 .info__about {
-    font-size: 14px;
+    font-size: var(--font-size-small);
     color: var(--muted);
-    line-height: 1.6;
+    line-height: var(--line-height-body);
 }
 
 .info__status {
-    font-size: 13px;
+    font-size: var(--font-size-caption);
     color: var(--muted);
 }
 
@@ -580,6 +580,11 @@ onUnmounted(() => {
     .hero-nav__burger {
         display: inline-flex;
     }
+
+    .hero-nav__actions {
+        display: inline-flex;
+        margin-left: auto;
+    }
 }
 
 @media (max-width: 768px) {
@@ -601,7 +606,7 @@ onUnmounted(() => {
     }
 
     .hero-nav__inner {
-        padding: 8px 0;
+        padding: 8px var(--container-gutter-mobile);
     }
 
     .hero-nav__links {

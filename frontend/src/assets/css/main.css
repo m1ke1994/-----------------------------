@@ -9,10 +9,15 @@
   --font-brand: "Hitch Hike", "Cormorant Garamond", "Times New Roman", serif;
   --font-menu: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   --font-text: "Cormorant Garamond", "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-  --font-size-base: 17px;
-  --font-size-small: 15px;
-  --font-size-caption: 13.5px;
-  --font-size-button: 14.5px;
+  --font-size-base: 18px;
+  --font-size-small: calc(var(--font-size-base) - 2px);
+  --font-size-caption: calc(var(--font-size-base) - 4px);
+  --font-size-button: calc(var(--font-size-base) - 2px);
+  --font-size-menu: calc(var(--font-size-base) - 3px);
+  --line-height-base: 1.68;
+  --line-height-body: 1.72;
+  --line-height-tight: 1.35;
+  --line-height-heading: 1.18;
   --bg: var(--color-background-main);
   --bg-elevated: var(--color-background-light);
   --text: var(--color-text-primary);
@@ -27,6 +32,10 @@
   --section-padding: 64px;
   --section-padding-mobile: 40px;
   --container-max: 1200px;
+  --header-container-max: 1320px;
+  --container-gutter: 24px;
+  --container-gutter-mobile: 16px;
+  --header-h: 72px;
   --header-offset: 120px;
   color-scheme: light;
 }
@@ -61,14 +70,29 @@ body {
   color: var(--text);
   font-family: var(--font-text);
   font-size: var(--font-size-base);
-  line-height: 1.6;
+  line-height: var(--line-height-base);
   overflow-x: hidden;
 }
 
 p,
 li {
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: var(--line-height-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--line-height-heading);
+  color: var(--text-strong);
+}
+
+small {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-tight);
 }
 
 input,
@@ -94,6 +118,7 @@ a {
   padding: 10px 16px;
   font-size: var(--font-size-button);
   font-weight: 600;
+  line-height: var(--line-height-tight);
   border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;

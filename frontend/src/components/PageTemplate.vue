@@ -245,7 +245,7 @@ onUnmounted(() => {
   margin: 0;
   max-width: 760px;
   color: rgba(247, 242, 234, 0.92);
-  line-height: 1.6;
+  line-height: var(--line-height-body);
 }
 
 .page__stats {
@@ -267,7 +267,7 @@ onUnmounted(() => {
 }
 
 .page__stat-label {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   color: var(--muted);
 }
 
@@ -292,13 +292,13 @@ onUnmounted(() => {
 
 .page__highlight-title {
   margin: 0 0 8px;
-  font-size: 16px;
+  font-size: var(--font-size-base);
 }
 
 .page__highlight-text {
   margin: 0;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: var(--line-height-body);
 }
 
 .page__quote {
@@ -314,7 +314,7 @@ onUnmounted(() => {
 }
 
 .page__quote-author {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   color: var(--muted);
 }
 
@@ -337,13 +337,13 @@ onUnmounted(() => {
 
 .page__timeline-title {
   margin: 0 0 6px;
-  font-size: 16px;
+  font-size: var(--font-size-base);
 }
 
 .page__timeline-text {
   margin: 0;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: var(--line-height-body);
 }
 
 .page__sections {
@@ -367,7 +367,7 @@ onUnmounted(() => {
 .page__section-text {
   margin: 0 0 10px;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: var(--line-height-body);
 }
 
 .page__action {
@@ -407,7 +407,7 @@ onUnmounted(() => {
 .page__gallery-subtitle {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: 15px;
+  font-size: var(--font-size-small);
 }
 
 .page__gallery-count {
@@ -418,7 +418,7 @@ onUnmounted(() => {
   padding: 6px 12px;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--card) 72%, transparent);
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   color: var(--text);
   backdrop-filter: blur(10px);
 }

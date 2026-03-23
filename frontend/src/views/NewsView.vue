@@ -74,8 +74,8 @@ onMounted(() => {
 .news-page__subtitle {
   margin: 0;
   max-width: 780px;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-body);
   color: var(--muted);
 }
 

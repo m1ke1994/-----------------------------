@@ -185,21 +185,21 @@ onUnmounted(() => {
 }
 
 .app-header__inner {
-  max-width: 1320px;
+  max-width: var(--header-container-max);
   width: 100%;
   margin: 0 auto;
-  padding: 12px 16px;
+  padding: 12px var(--container-gutter);
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: clamp(16px, 1.8vw, 28px);
   box-sizing: border-box;
 }
 
 .app-header__brand {
-  margin-right: clamp(10px, 1vw, 18px);
+  margin-right: 0;
   color: var(--color-dark-deep);
   font-family: var(--font-brand);
-  font-size: clamp(21px, 2vw, 29px);
+  font-size: clamp(22px, 1.9vw, 30px);
   line-height: 1;
   letter-spacing: 0.3px;
   white-space: nowrap;
@@ -209,23 +209,23 @@ onUnmounted(() => {
 .app-header__links {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex: 1 1 auto;
   flex-wrap: nowrap;
-  gap: clamp(8px, 0.75vw, 12px);
+  gap: clamp(12px, 1vw, 24px);
   min-width: 0;
 }
 
 .app-header__link {
   font-family: var(--font-menu);
-  font-size: 14px;
+  font-size: var(--font-size-menu);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: var(--line-height-tight);
   color: var(--text);
   text-decoration: none;
   position: relative;
   white-space: nowrap;
-  padding: 6px 2px;
+  padding: 8px 1px;
   transition: color 200ms ease;
 }
 
@@ -343,7 +343,7 @@ onUnmounted(() => {
   border: none;
   color: var(--text);
   font-family: var(--font-menu);
-  font-size: 15px;
+  font-size: var(--font-size-small);
   font-weight: 500;
   line-height: 1.3;
   position: relative;
@@ -386,7 +386,7 @@ onUnmounted(() => {
   }
 
   .app-header__inner {
-    padding: 12px 14px;
+    padding: 12px var(--container-gutter-mobile);
   }
 
   .app-header__actions {
@@ -410,7 +410,7 @@ onUnmounted(() => {
 
 @media (max-width: 414px) {
   .app-header__inner {
-    padding: 10px 12px;
+    padding: 10px var(--container-gutter-mobile);
   }
 
   .app-header__brand {
